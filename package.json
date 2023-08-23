@@ -1,0 +1,61 @@
+{
+  "name": "bill-payment-service",
+  "version": "1.0.0",
+  "description": "Bill Payment Service",
+  "private": true,
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "stag": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "./node_modules/mocha/bin/mocha ./test/index"
+  },
+  "dependencies": {
+    "alphacore-sdk": "git+ssh://git@git.alphacore.tech:b2b2c/nodejs-sdk-v1.git#semver:^1.0.0",
+    "axios": "^1.4.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cluster": "^0.7.7",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
+    "debug": "^4.3.4",
+    "express": "^4.18.2",
+    "express-no-favicons": "^0.0.1",
+    "express-useragent": "^1.0.15",
+    "fast-safe-stringify": "^2.1.1",
+    "fs": "^0.0.1-security",
+    "helmet": "^3.23.3",
+    "https": "^1.0.0",
+    "iso8601-convert": "^1.0.0",
+    "joi": "^17.9.2",
+    "jws": "^4.0.0",
+    "method-override": "^3.0.0",
+    "moment": "^2.29.4",
+    "morgan": "^1.10.0",
+    "pg": "^8.11.3",
+    "process": "^0.11.10",
+    "rotating-file-stream": "^3.1.1",
+    "statuses": "^2.0.1",
+    "uniqid": "^5.4.0",
+    "uuid": "^9.0.0",
+    "winston": "^3.10.0",
+    "winston-daily-rotate-file": "^4.7.1",
+    "zipkin": "^0.22.0",
+    "zipkin-context-cls": "^0.22.0",
+    "zipkin-instrumentation-express": "^0.22.0",
+    "zipkin-transport-http": "^0.22.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^10.0.0",
+    "nodemon": "^3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.alphacore.tech:b2b2c/bill-payment.git"
+  },
+  "author": "Long Pham",
+  "license": "ISC",
+  "homepage": "www.alphacore.vn"
+}

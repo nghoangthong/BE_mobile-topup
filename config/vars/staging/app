@@ -1,0 +1,44 @@
+
+APPLICATION_ENVIRONMENT: staging
+
+main_domain: 'alphacore.tech'
+app_protocol: 'http'
+app_port: 3001
+app_ssl_port: 4001
+app_domain: 'mobile-topup01.alphacore.tech'
+app_ssl_key: 'alphacore.tech.key.pem'
+app_ssl_crt: 'alphacore.tech.crt.pem'
+
+application:
+  name: mobile-topup
+  host: 127.0.0.1
+  port: 3001
+  checks_name: "web-ping"
+  interval: 10s
+  tags: mobile-topup
+
+zipkin:
+  name: mobile-topup-service
+  endpoint: http://127.0.0.1:9411/api/v2/spans
+
+logging:
+  level: 'info'
+
+postgres:
+  port: 5432
+  user: admin
+  pass: ***********
+  name: mobile-topup
+  ip: 127.0.0.1
+
+rsa:
+  private_key: ''
+  public_key: ''
+
+partners:
+  appotapay:
+    connection:
+      api_uri: 'https://gateway.dev.appotapay.com'
+      partner_code: 'APPOTAPAY'
+      api_key: 'FJcmF8uj2ISveL5FvvNk4pnp8xrhINz8'
+      secret_key: 'XAonJgy14YhtePEITXhyBS2unjfJLAV3'
