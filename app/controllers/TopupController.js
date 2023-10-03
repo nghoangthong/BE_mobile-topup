@@ -1,10 +1,15 @@
-const axios = require('axios');
 const {v4: uuidv4} = require('uuid');
+const axios = require('axios');
+
 const JWTGenerator = require('../libraries/AppotaPay/JWTGenerator');
 const SignatureGenerator = require('../libraries/AppotaPay/SignatureGenerator');
 const ResponseBuilder = require('../libraries/Common/Builders/ResponseBuilder');
 const RequestValidationError = require('../libraries/Exception/RequestValidationError');
-
+const TopupModel = require('../models/Topup');
+const CONSTANT = require('../../config/constant')
+const getJsonData = require('../libraries/AppotaPay/GetJsonData')
+const httpRequest = require('../libraries/AppotaPay/httpRequests');
+const { get } = require('https');
 class TopupController {
     /**
      *
@@ -23,11 +28,30 @@ class TopupController {
      * @returns {Promise<*>}
      */
     charging = async (req, res, next) => {
-        try {
+       
+        let partnerRefId = uuidv4();
+        let amount = req.body.amount;
+        let telco = req.body.telco;
+        let telcoServiceType = req.body.telcoServiceType;
+        let phoneNumber = req.body.phoneNumber;
+        let billData = await TopupModel.getDataByPartnerRefId(partnerRefId)
+        // transactionStatus = getJsonData.getTransactionStatus(res.errorcode)
+
+        try { 
+            let data = {
+                partnerRefId: partnerRefId,
+                amount: amount,
+                telco: telco,
+                telcoServiceType: telcoServiceType,
+                phoneNumber: phoneNumber
+            };
+            console.log(data)
+            let resData = await this.#processTopupCharging(data)
             // response
+
             return res.json(
                 ResponseBuilder.init()
-                    .withData(??)
+                    .withData(resData.response)
                     .build()
             );
         } catch (error) {
@@ -35,6 +59,24 @@ class TopupController {
             Logger.error(error);
             Logger.error(error.response.data);
 
+            let data = {
+                transaction_status: CONSTANT.BILL_DETAIL.BILL_STATUS.ERROR,
+                partner_ref_id: partnerRefId ? partnerRefId : '',
+                telco: telco ? telco : '',
+                amount: amount ? amount : 0,
+                telco_service_type: telcoServiceType ? telcoServiceType : '',
+                phone_number: phoneNumber ? phoneNumber : '',
+                response:
+                  Object.prototype.toString.call(error.response.data) ===
+                    '[object Object]'
+                    ? error.response.data
+                    : {
+                      message: error.response.data,
+                      errorCode: error.response.status,
+                    },
+              }
+
+              await TopupModel.saveRecordAsync(data)
             // TODO: save the response error to DB
 
             next(error);
@@ -57,21 +99,21 @@ class TopupController {
         Logger.debug('TopupController::#processTopupCharging -- Procedure topup charging with payload ', reqPayload);
 
         // send POST request to AppotaPay
-        let resData = await axios.post(
-            APP_SETTINGS.PARTNERS.APPOTAPAY.CONNECTION.API_URI + APP_SETTINGS.PARTNERS.APPOTAPAY.ENDPOINTS.TOPUP_CHARGING.ENDPOINT,
-            reqPayload,
-            {
-                headers: {
-                    'X-APPOTAPAY-AUTH': `${APP_SETTINGS.PARTNERS.APPOTAPAY.HEADERS.AUTH_HEADER_SCHEME} ${jwtToken}`,
-                    'Content-Type': APP_SETTINGS.PARTNERS.APPOTAPAY.HEADERS.AUTH_HEADER_CONTENT_TYPE
-                }
-            }
-        );
+        let resData = await httpRequest.chargingInfoFromGetWay(reqPayload, jwtToken)
+        let transactionStatus = getJsonData.getTransactionStatus(resData.data.errorCode)
 
         Logger.debug('TopupController::#processTopupCharging -- Response: ', resData);
+        let data = {
+            transaction_status: transactionStatus,
+            partner_ref_id: reqPayload.partnerRefId,
+            telco: reqPayload.telco,
+            telco_service_type: reqPayload.telcoServiceType,
+            amount: reqPayload.amount,
+            phone_number: reqPayload.phoneNumber,
+            response: resData.data,
+        }
+        return await TopupModel.saveRecordAsync(data)
 
-        // persist data into table
-        return ??;
     }
 
     /**

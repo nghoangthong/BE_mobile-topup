@@ -34,6 +34,34 @@ const CONSTANT = {
   DATE_ISO8601: 'Y-m-d\\TH:i:sO', // Example: 2005-08-15T15:52:01+0000
 
   OK: 'OK',
+  
+  BILL_DETAIL: {
+    MIN_AMOUNT: "10000",
+
+    TYPE_SERVICE:{
+      ONE: "one",
+      MANY: "many",
+    },
+
+    SERVICE_CODE: {
+      BILL_ELECTRIC: "BILL_ELECTRIC",
+      BILL_WATER: "BILL_WATER",
+      BILL_TELEVISION: "BILL_TELEVISION",
+      BILL_INTERNET: "BILL_INTERNET",
+      BILL_TELEPHONE: "BILL_TELEPHONE",
+      BILL_FINANCE: "BILL_FINANCE",
+    },
+
+    BILL_STATUS: {
+      SUCCESS: "Success",
+      ERROR: "Error",
+      RETRY: "Retry",
+      PENDING: "Pending",
+    },
+    UNKNOWN: "unknown",
+    BILL_CHECKING_TIME : "30 minutes"
+  },
 };
+
 
 module.exports = CONSTANT;

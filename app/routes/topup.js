@@ -15,7 +15,7 @@ router.post('/charging',
      * Step 1: validate headers and request body
      */
     validateRequestSchema('headers', validateHeaderSchema),
-    validateRequestSchema('body', validateTopupChargingSchema),
+
     TopupController.charging
 );
 

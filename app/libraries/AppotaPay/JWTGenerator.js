@@ -24,7 +24,6 @@ class JWTGenerator {
         });
 
         Logger.debug(`===JWTGenerator::generate - Generated JWT Header Token in expiry time ${expiryTime}: ${jwtToken}\n`);
-
         return jwtToken;
     }
 }

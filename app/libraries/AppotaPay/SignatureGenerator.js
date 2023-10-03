@@ -17,7 +17,6 @@ class SignatureGenerator {
         let signature = hmacKey.update(sortedString).digest('hex');
 
         Logger.debug(`===SignatureGenerator::generate - Generated signature based on parameters `, params, `: ${signature}\n`);
-
         return signature;
     }
 }
