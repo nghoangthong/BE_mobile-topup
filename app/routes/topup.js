@@ -22,7 +22,7 @@ router.post('/charging',
 /**
  * Endpoint: GET /v1/topup/transactions
  */
-router.get('/transactions', TopupController.transactions);
+router.get('/transactions/:partner_ref_id', TopupController.transactions);
 
 module.exports = router;
 

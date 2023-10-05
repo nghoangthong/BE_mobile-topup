@@ -17,25 +17,25 @@ class GetJsonData {
   
       let transactionStatusError = jsonData.Error && jsonData.Error[errorCode];
       if (transactionStatusError) {
-        return CONSTANT.BILL_DETAIL.BILL_STATUS.ERROR;
+        return CONSTANT.TOPUP_DETAIL.STATUS.ERROR;
       }
   
       let transactionStatusSuccess = jsonData.Success && jsonData.Success[errorCode];
       if (transactionStatusSuccess) {
-        return CONSTANT.BILL_DETAIL.BILL_STATUS.SUCCESS;
+        return CONSTANT.TOPUP_DETAIL.STATUS.SUCCESS;
       }
   
       let transactionStatusRetry = jsonData.Retry && jsonData.Retry[errorCode];
       if (transactionStatusRetry) {
-        return CONSTANT.BILL_DETAIL.BILL_STATUS.RETRY;
+        return CONSTANT.TOPUP_DETAIL.STATUS.RETRY;
       }
   
       let transactionStatusPending = jsonData.Pending && jsonData.Pending[errorCode];
       if (transactionStatusPending) {
-        return CONSTANT.BILL_DETAIL.BILL_STATUS.PENDING;
+        return CONSTANT.TOPUP_DETAIL.STATUS.PENDING;
       }
   
-      return CONSTANT.BILL_DETAIL.UNKNOWN;
+      return CONSTANT.TOPUP_DETAIL.UNKNOWN;
     } catch (error) {
       Logger.error("function gettransactionStatus | error:", error);
       return false;
@@ -56,11 +56,11 @@ class GetJsonData {
       );
       const jsonData = JSON.parse(rawData);
       const serviceGroups = [
-        CONSTANT.BILL_DETAIL.SERVICE_CODE.BILL_ELECTRIC,
-        CONSTANT.BILL_DETAIL.SERVICE_CODE.BILL_WATER,
-        CONSTANT.BILL_DETAIL.SERVICE_CODE.BILL_TELEVISION,
-        CONSTANT.BILL_DETAIL.SERVICE_CODE.BILL_INTERNET,
-        CONSTANT.BILL_DETAIL.SERVICE_CODE.BILL_TELEPHONE,
+        CONSTANT.TOPUP_DETAIL.SERVICE_CODE.BILL_ELECTRIC,
+        CONSTANT.TOPUP_DETAIL.SERVICE_CODE.BILL_WATER,
+        CONSTANT.TOPUP_DETAIL.SERVICE_CODE.BILL_TELEVISION,
+        CONSTANT.TOPUP_DETAIL.SERVICE_CODE.BILL_INTERNET,
+        CONSTANT.TOPUP_DETAIL.SERVICE_CODE.BILL_TELEPHONE,
       ];
   
       for (const group of serviceGroups) {
@@ -68,21 +68,21 @@ class GetJsonData {
           jsonData.services[group] && jsonData.services[group][serviceCode];
   
         if (oneTimePaymentBill) {
-          return CONSTANT.BILL_DETAIL.TYPE_SERVICE.ONE;
+          return CONSTANT.TOPUP_DETAIL.TYPE_SERVICE.ONE;
         }
       }
   
       let recurringPaymentBill =
-        jsonData.services[CONSTANT.BILL_DETAIL.SERVICE_CODE.BILL_FINANCE] &&
-        jsonData.services[CONSTANT.BILL_DETAIL.SERVICE_CODE.BILL_FINANCE][
+        jsonData.services[CONSTANT.TOPUP_DETAIL.SERVICE_CODE.BILL_FINANCE] &&
+        jsonData.services[CONSTANT.TOPUP_DETAIL.SERVICE_CODE.BILL_FINANCE][
           serviceCode
         ];
   
       if (recurringPaymentBill) {
-        return CONSTANT.BILL_DETAIL.TYPE_SERVICE.MANY;
+        return CONSTANT.TOPUP_DETAIL.TYPE_SERVICE.MANY;
       }
   
-      return CONSTANT.BILL_DETAIL.UNKNOWN;
+      return CONSTANT.TOPUP_DETAIL.UNKNOWN;
     } catch (error) {
       Logger.error("function getServiceCode | error:", error);
       return false;

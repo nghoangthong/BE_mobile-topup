@@ -35,7 +35,7 @@ const CONSTANT = {
 
   OK: 'OK',
   
-  BILL_DETAIL: {
+  TOPUP_DETAIL: {
     MIN_AMOUNT: "10000",
 
     TYPE_SERVICE:{
@@ -52,7 +52,7 @@ const CONSTANT = {
       BILL_FINANCE: "BILL_FINANCE",
     },
 
-    BILL_STATUS: {
+    STATUS: {
       SUCCESS: "Success",
       ERROR: "Error",
       RETRY: "Retry",

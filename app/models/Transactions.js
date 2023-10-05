@@ -5,7 +5,7 @@ const Model = require("./Model");
  */
 class Transaction extends Model {
     constructor() {
-        super('topup_transactions');
+        super('topup_transaction');
     }
 }
 
