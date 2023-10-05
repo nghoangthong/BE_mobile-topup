@@ -4,14 +4,12 @@ const axios = require("axios");
 const JWTGenerator = require("../libraries/AppotaPay/JWTGenerator");
 const SignatureGenerator = require("../libraries/AppotaPay/SignatureGenerator");
 const ResponseBuilder = require("../libraries/Common/Builders/ResponseBuilder");
-const RequestValidationError = require("../libraries/Exception/RequestValidationError");
 const TopupModel = require("../models/Topup");
 const TransactionModel = require("../models/Transactions");
 const TopupHistories = require("../models/TopupHistories");
 const CONSTANT = require("../../config/constant");
 const getJsonData = require("../libraries/AppotaPay/GetJsonData");
 const httpRequest = require("../libraries/AppotaPay/httpRequests");
-const { get } = require("https");
 class TopupController {
   /**
    *

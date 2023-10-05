@@ -5,7 +5,7 @@ class SignatureGenerator {
      * Generate request signature
      *
      * @param params
-     * @returns {Promise<ArrayBuffer>}
+     * @returns string
      */
     generate (params) {
         // sort
