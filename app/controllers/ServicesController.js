@@ -42,16 +42,11 @@ class ServicesController {
      */
     services = (req, res, next) => {
         try {
-            let serviceId = req.params.service_id;
-
-            Logger.debug('ServicesController::services -- Get list of services.');
-
+            Logger.debug('ServicesController::service -- Get list of services.');
             let resData = this.#readBillServices();
-            let serviceItems = resData.telephone_charges[serviceId];
+            // response
             return res.json(
-                ResponseBuilder.init()
-                    .withData(serviceItems ? serviceItems : {})
-                    .build()
+                ResponseBuilder.init().withData(resData.telephone_charges).build()
             );
         } catch (error) {
             Logger.error(error);

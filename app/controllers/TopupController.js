@@ -35,6 +35,7 @@ class TopupController {
     let phoneNumber = req.body.phoneNumber;
 
     try {
+      
       let data = {
         partnerRefId: partnerRefId,
         amount: amount,
@@ -104,11 +105,12 @@ class TopupController {
     let transactionStatus = getJsonData.getTransactionStatus(
       resData.data.errorCode
     );
-    console.log("resData.data.errorCode", resData.data.errorCode);
+
     Logger.debug(
       "TopupController::#processTopupCharging -- Response: ",
       resData
     );
+
     let data = {
       transaction_status: transactionStatus,
       partner_ref_id: reqPayload.partnerRefId,
@@ -118,6 +120,7 @@ class TopupController {
       phone_number: reqPayload.phoneNumber,
       response: resData.data,
     };
+    
     await TopupHistories.saveRecordAsync(data);
     return await TopupModel.saveRecordAsync(data);
   }
@@ -147,8 +150,6 @@ class TopupController {
           topupData.transaction_status === CONSTANT.TOPUP_DETAIL.STATUS.ERROR;
         let isPendingStatus =
           topupData.transaction_status === CONSTANT.TOPUP_DETAIL.STATUS.PENDING;
-        let isRetryStatus =
-          topupData.transaction_status === CONSTANT.TOPUP_DETAIL.STATUS.RETRY;
 
         if (validStatuses.includes(topupData.transaction_status)) {
           if (isSuccessStatus || isErrorStatus) {
@@ -156,7 +157,7 @@ class TopupController {
               ResponseBuilder.init().withData(topupData.response).build()
             );
           }
-          if (isPendingStatus || isRetryStatus) {
+          if (isPendingStatus) {
             let resData = await this.#processTopupTransaction(partnerRefId);
             let trasactionStatus = getJsonData.getTransactionStatus(
               resData.data.errorCode

@@ -8,7 +8,7 @@
       "11": "Partner không tồn tại",
       "12": "Số dư không đủ",
       "13": "Partner đã bị khoá",
-      "14": "API Key ko tồn tại",
+      "14": "API Key không tồn tại",
       "23": "API Key chưa được kích hoạt hoặc đã bị khoá",
       "31": "Mã giao dịch bị trùng",
       "32": "Số tiền không hợp lệ",
@@ -21,11 +21,9 @@
       "51": "Khách hàng không nợ cước, giao dịch thất bại",
       "52": "Khách hàng chưa đăng ký dịch vụ, giao dịch thất bại",
       "56": "Không đúng loại dịch vụ",
-      "55": "Nhà mạng hoặc mệnh giá không nằm trong danh sách khả dụng"
-    },
-    "Retry": {
-      "40": "Hệ thống đang bảo trì, vui lòng thử lại sau",
-      "41": "Nhà mạng ngừng hoạt động hoặc đang bảo trì"
+      "55": "Nhà mạng hoặc mệnh giá không nằm trong danh sách khả dụng",
+      "41": "Nhà mạng ngừng hoạt động hoặc đang bảo trì",
+      "40": "Hệ thống đang bảo trì, vui lòng thử lại sau"
     },
     "Pending": {
       "34": "Giao dịch đang được xử lý vui lòng kiểm tra lại sau",
