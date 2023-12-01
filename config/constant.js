@@ -1,9 +1,3 @@
-/**
- * Predefined CONSTANTS for using cross through project
- *
- * @author Long Pham
- * @type {*|start}
- */
 
 const CONSTANT = {
   AUTH_HEADER_KEY: 'authorization',
